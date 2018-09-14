@@ -13,7 +13,13 @@ This project is to allow users to alert others, who also have the app, in emerge
 
 ----
 
-This Android application is for SSW695 class, and it's made by: Hannah Bako, Jose Lara & Michael Kim
+This Android application is for Software Engineering Capstone (SSW 695) class.
+
+ #### Participants for this Team project are:
+ 
+ 1. Hannah Bako
+ 2. Jose Lara
+ 3. Michael Kim
 
 ----
 
