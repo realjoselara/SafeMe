@@ -9,7 +9,7 @@ This project is to allow users to alert others, who also have the app, in emerge
 
 #### Assignment Requirements:
 
-![project requirements](https://github.com/latinocodes/SafeMe/requirements.png?raw=true)
+![project requirements](https://github.com/latinocodes/SafeMe/blob/master/requirements.png?raw=true)
 
 #### Software Requirement Specification for project:
 
