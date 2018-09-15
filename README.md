@@ -13,7 +13,7 @@ This project is to allow users to alert others, who also have the app, in emerge
 
 #### Project Files:
 
-[Find the SRS here](https://docs.google.com/document/d/1zzJ0NjM8_WT3WWASSdK4HMi4VV9x3BZ6PqjQWl1QADE/edit?usp=sharing)[LucidChart Link for UI] (https://www.lucidchart.com/invitations/accept/20e95cce-c401-4d13-afbd-7832c12d10f7)
+[Find the SRS here](https://docs.google.com/document/d/1zzJ0NjM8_WT3WWASSdK4HMi4VV9x3BZ6PqjQWl1QADE/edit?usp=sharing)[LucidChart Link for UI](https://www.lucidchart.com/invitations/accept/20e95cce-c401-4d13-afbd-7832c12d10f7)
 [Invision Link](https://invis.io/K6NXGNWEYW9)
 [Updated Lucid Chart](https://www.lucidchart.com/invitations/accept/ea059a1a-eb33-4ef7-8909-3bcaf0a137d9)
 
