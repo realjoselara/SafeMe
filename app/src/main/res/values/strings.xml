@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SafeMe</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_alerts">SaveMe</string>
+    <!--<string name="title_activity_alets">AlertsActivity</string>-->
+    <string name="API_KEY">AIzaSyASnlTsJA2EyWuh2b_6LRO0TOQPMa4m0Qw</string>
 </resources>
