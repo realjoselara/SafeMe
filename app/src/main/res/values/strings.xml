@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">SafeMe</string>
+    <string name="app_name">Safe Me Alert System</string>
+    <string name="bomb">Bomb</string>
+    <string name="rapist">Rapist</string>
+    <string name="other_alerts">Other Alerts</string>
+    <string name="amber_alert">Amber</string>
+    <string name="active_shooter">Active Shooter</string>
 </resources>
