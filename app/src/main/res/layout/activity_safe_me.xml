@@ -3,16 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
     tools:context=".SafeMeActivity">
+    android:layout_height="match_parent"
+    tools:context=".SafeMeActivity"
+    android:background="@drawable/gradient">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/bomb"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        android:background="@android:color/holo_red_dark"
+        android:text="@string/bomb"
+        app:layout_constraintEnd_toStartOf="@+id/rapist"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/rapist"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/rapist"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        android:background="@color/colorAccent"
+        android:text="@string/rapist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bomb"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/active_shooter"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        android:background="?android:attr/colorFocusedHighlight"
+        android:text="@string/active_shooter"
+        app:layout_constraintEnd_toStartOf="@+id/amber_alert"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bomb" />
+
+    <Button
+        android:id="@+id/amber_alert"
+        android:layout_width="0dp"
+        android:layout_height="190dp"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        android:background="@android:color/holo_orange_light"
+        android:text="@string/amber_alert"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/active_shooter"
+        app:layout_constraintTop_toBottomOf="@+id/rapist" />
+
+    <Button
+        android:id="@+id/other_alert"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:textColor="@android:color/white"
+        android:textSize="38sp"
+        android:background="@android:color/transparent"
+        android:text="@string/other_alerts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/active_shooter" />
 
 </android.support.constraint.ConstraintLayout>
