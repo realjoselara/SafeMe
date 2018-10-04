@@ -29,7 +29,7 @@ public class SafeMeActivity extends AppCompatActivity {
                             Manifest.permission.ACCESS_COARSE_LOCATION },
                     1);
         }
-        startService(new Intent(this,LocationService .class));
+//        startService(new Intent(this, LocationService .class));
 
     }
 }
