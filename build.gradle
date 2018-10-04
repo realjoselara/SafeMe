@@ -7,7 +7,13 @@ buildscript {
         jcenter()
     }
     dependencies {
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:3.2.0'
+=======
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.google.android.gms:play-services-maps:15.0.1'
+        classpath 'com.google.android.gms:play-services-location:15.0.1'
+>>>>>>> b6e0c308fedb0414fda08fdbf4fba43365a9cb58
         
 
         // NOTE: Do not place your application dependencies here; they belong
