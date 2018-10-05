@@ -30,10 +30,17 @@ public class SafeMeActivity extends AppCompatActivity {
                     1);
         }
 
+<<<<<<< HEAD
       //  startService(new Intent(LOCATION_SERVICE));
 
         //startService(new Intent(this,LocationService .class));
 
+=======
+      
+      //  startService(new Intent(LOCATION_SERVICE));
+
+        //startService(new Intent(this,LocationService .class));
+>>>>>>> ed8827df52b27aeb9e735d21618de5ce5acab2df
 
     }
 }
