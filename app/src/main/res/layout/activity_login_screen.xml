@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context=".LoginActivity">
+    tools:context=".LoginScreen"
+    android:id="@+id/LoginActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -38,7 +39,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="#11000000"
-        android:drawableStart="@drawable/ic_action_name"
+        android:drawableStart="@drawable/ic_action_lock"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
