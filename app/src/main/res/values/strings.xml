@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">SafeMe</string>
+    <string name="app_name">Safe Me Alert System</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_alerts">SaveMe</string>
     <!--<string name="title_activity_alets">AlertsActivity</string>-->
