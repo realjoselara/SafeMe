@@ -11,5 +11,6 @@
     <string name="amber_alert">Amber</string>
     <string name="active_shooter">Active Shooter</string>
     <string name="title_activity_login">login</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
