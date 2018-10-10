@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.latinocodes.safeme">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- This permission is need to check the internet connection state ! -->
@@ -28,27 +27,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- <activity -->
-        <!-- android:name=".AlertsActivity" -->
-        <!-- android:label="@string/title_activity_alerts" -->
-        <!-- android:theme="@style/AppTheme.NoActionBar"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+        <!--This service is required for the location capture-->
+        <service
+            android:name=".LocationService"
+            android:enabled="true" />
 
 
-        <!-- &lt;!&ndash; <category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt; -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-
-
-        <!-- <service -->
-        <!-- android:name=".LocationService" -->
-        <!-- android:enabled="true" /> -->
-
-
-        <!-- <meta-data -->
-        <!-- android:name="com.google.android.geo.API_KEY" -->
-        <!-- android:value="API_KEY" /> -->
+         <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="API_KEY" />
 
         <activity
             android:name=".LoginScreen"
@@ -64,9 +52,9 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+        <!--<meta-data-->
+            <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="@string/google_maps_key" />-->
 
         <activity
             android:name=".MapsActivity"
