@@ -28,13 +28,12 @@
             </intent-filter>
         </activity>
 
-        <!--This service is required for the location capture-->
+        <!-- This service is required for the location capture -->
         <service
             android:name=".LocationService"
             android:enabled="true" />
 
-
-         <meta-data
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="API_KEY" />
 
@@ -52,13 +51,17 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
-        <!--<meta-data-->
-            <!--android:name="com.google.android.geo.API_KEY"-->
-            <!--android:value="@string/google_maps_key" />-->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.geo.API_KEY" -->
+        <!-- android:value="@string/google_maps_key" /> -->
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".Description"
+            android:label="@string/title_activity_description"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
