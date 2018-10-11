@@ -17,12 +17,11 @@ import android.widget.Toast;
 import android.support.v4.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
-import com.latinocodes.safeme.model.Dialog;
 
 import java.util.HashMap;
 
 public class SafeMeActivity extends AppCompatActivity {
-    private Button button;
+    private Button bombButton;
     public HashMap<String, Double> coordinates = new HashMap<>();
     public static final String BROADCAST_ACTION = "com.ojastec.broadcastreceiverdemo";
     private String TAG = "SafeMeActivity";
@@ -53,16 +52,60 @@ public class SafeMeActivity extends AppCompatActivity {
 
 
         //Bomb Button Event
-        button = (Button) findViewById(R.id.bomb);
-        button.setOnClickListener(new View.OnClickListener() {
+        bombButton = (Button) findViewById(R.id.bomb);
+        bombButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openPopup();
             }
         });
 
+        // amber alert button
+        Button amberAlert = (Button) findViewById(R.id.amber_alert);
+        // handle onclick event for amber button: open up Description activity
+        amberAlert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Description.class);
+                startActivity(intent);
+
+            }
+        });
+
+        //other emergency alert button
+        Button other = (Button) findViewById(R.id.other_alert);
+        //handle onclick event for other emergency button: open up Description activity
+        other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Description.class);
+                startActivity(intent);
+            }
+        });
+
+        // active shooter emergency alert button
+        Button activeShooter = (Button) findViewById(R.id.active_shooter);
+        // handle onclick event for active shooter button: open up dialog box
+        activeShooter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPopup();
+            }
+        });
+
+        //button for attack emergency alert button
+        Button attack = (Button) findViewById(R.id.rapist);
+        //handle onclick event for attack emergency button : open up a dialog box
+        attack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPopup();
+            }
+        });
 
     }
+
+
     //openPopup Method after pushing one of the buttons on SafeMeActivity Screen
     public void openPopup() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
