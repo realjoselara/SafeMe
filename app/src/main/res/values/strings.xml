@@ -1,16 +1,17 @@
 <resources>
 
-    <string name="app_name">Safe Me Alert System</string>
+    <string name="app_name">Safe Me</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_alerts">SaveMe</string>
     <!--<string name="title_activity_alets">AlertsActivity</string>-->
     <string name="API_KEY">AIzaSyASnlTsJA2EyWuh2b_6LRO0TOQPMa4m0Qw</string>
     <string name="bomb">Bomb</string>
-    <string name="rapist">Rapist</string>
+    <string name="rapist">Attack</string>
     <string name="other_alerts">Other Alerts</string>
     <string name="amber_alert">Amber</string>
     <string name="active_shooter">Active Shooter</string>
     <string name="title_activity_login">login</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_description">Description</string>
 
 </resources>
