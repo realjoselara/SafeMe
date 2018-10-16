@@ -13,5 +13,10 @@
     <string name="title_activity_login">login</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_description">Description</string>
+    <string name="EmailAddress">Email Address</string>
+    <string name="Password">Password</string>
+    <string name="Signup">SIGN UP</string>
+    <string name="ConfirmPassword">Confirm Password</string>
+    <string name="Login">Login</string>
 
 </resources>
