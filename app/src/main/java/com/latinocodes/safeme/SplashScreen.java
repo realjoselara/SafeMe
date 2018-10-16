@@ -14,7 +14,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run(){
                 try{
                     sleep(2000);
-                    Intent intent = new Intent(getApplicationContext(), SafeMeActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
                     startActivity(intent);
                     //Destroy Activity
                     finish();

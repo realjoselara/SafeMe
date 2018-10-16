@@ -8,10 +8,11 @@
     tools:context=".LoginScreen"
     android:id="@+id/LoginActivity">
 
+
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="132dp"
+        android:layout_height="176dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
@@ -22,8 +23,8 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="344dp"
-        android:layout_height="63dp"
+        android:layout_width="334dp"
+        android:layout_height="44dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/editText"
@@ -39,10 +40,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="#11000000"
-        android:drawableStart="@drawable/ic_action_lock"
+        android:drawableStart="@drawable/ic_action_name"
         android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
+        android:hint="@string/EmailAddress"
+        android:inputType="textEmailAddress"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/editText2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,12 +60,12 @@
         android:background="#11000000"
         android:drawableStart="@drawable/ic_action_lock"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/Password"
         android:inputType="textPassword"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
@@ -74,15 +75,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/roundstylebutton"
-        android:text="Login"
+        android:text="@string/Login"
+        app:layout_constraintBottom_toTopOf="@+id/registerbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/registerbtn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/roundstylebutton"
+        android:text="@string/Signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
