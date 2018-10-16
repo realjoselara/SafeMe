@@ -38,69 +38,72 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.signupbtn:
                 //on signup button - Register the user to Firebase
                 regUser();
                 break;
         }
     }
-    private void regUser(){
+
+    private void regUser() {
         //declare variable from the text fields
         String useremail = editemailaddress.getText().toString().trim();
         String userpass = editpassword.getText().toString().trim();
         String confirmpass = editconfirmpass.getText().toString().trim();
 
-        //Validate the fields
-        if(useremail.isEmpty()) {
-            editemailaddress.setError("Email Required");
-            editemailaddress.requestFocus();
-            return;
-        }
+        try {
 
-        //Regex Email address pattern
-        if(!Patterns.EMAIL_ADDRESS.matcher(useremail).matches()){
-            editemailaddress.setError("Enter Valid Email Address");
-            editemailaddress.requestFocus();
-            return;
-        }
+            //Validate the fields
+            if (useremail.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Email Required", Toast.LENGTH_SHORT).show();
+                editemailaddress.requestFocus();
+                return;
+            }
 
-        //validate password is empty
-        if(userpass.isEmpty()){
-            editpassword.setError("Password Required");
-            editpassword.requestFocus();
-            return;
-        }
-        //validate password length
-        if(userpass.length()<6){
-            editpassword.setError("Minimum length should be 6");
-            editpassword.requestFocus();
-            return;
-        }
+            //Regex Email address pattern
+            if (!Patterns.EMAIL_ADDRESS.matcher(useremail).matches()) {
+                Toast.makeText(getApplicationContext(), "Enter Valid Email Address", Toast.LENGTH_SHORT).show();
+                editemailaddress.requestFocus();
+                return;
+            }
 
-        //validate password with the second textfield
-        if(!userpass.equals(confirmpass)){
-            editconfirmpass.setError("Password does not match");
-            editconfirmpass.requestFocus();
-            return;
-        }
+            //validate password is empty
+            if (userpass.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Password Required", Toast.LENGTH_SHORT).show();
+                editpassword.requestFocus();
+                return;
+            }
+            //validate password length
+            if (userpass.length() < 6) {
+                Toast.makeText(getApplicationContext(), "Password Length must be at least 6", Toast.LENGTH_SHORT).show();
+                editpassword.requestFocus();
+                return;
+            }
 
-        //create new user to firebase method
-        mAuth.createUserWithEmailAndPassword(useremail, userpass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(),"Register Complete", Toast.LENGTH_SHORT).show();
-                    Intent backtologin = new Intent(SignUpActivity.this, LoginScreen.class);
-                    startActivity(backtologin);
-                } else{
-                    Toast.makeText(getApplicationContext(), "Email is Registered already", Toast.LENGTH_SHORT).show();
-                }
+            //validate password with the second textfield
+            if (!userpass.equals(confirmpass)) {
+                Toast.makeText(getApplicationContext(), "Password does not match", Toast.LENGTH_SHORT).show();
+                editconfirmpass.requestFocus();
+                return;
+            }
+
+            //create new user on firebase method
+            mAuth.createUserWithEmailAndPassword(useremail, userpass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "Register Complete", Toast.LENGTH_SHORT).show();
+                        Intent backtologin = new Intent(SignUpActivity.this, LoginScreen.class);
+                        startActivity(backtologin);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Email is Registered already", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
-
+        } catch (Exception ex) {
+            System.out.println("Error Exception has occurred");
         }
 
     }
-
-
+}
