@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "742657328446",
+    "firebase_url": "https://ssw695-3ec44.firebaseio.com",
+    "project_id": "ssw695-3ec44",
+    "storage_bucket": "ssw695-3ec44.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742657328446:android:d9db459f215dba0f",
+        "android_client_info": {
+          "package_name": "com.latinocodes.safeme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742657328446-spns5sii9qnpds53m7lnfruhee71t4mq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.latinocodes.safeme",
+            "certificate_hash": "1f6300ad5e4b0cf4fca52e1bdf86ada04dda4f52"
+          }
+        },
+        {
+          "client_id": "742657328446-9t8dn4vtiq77gimr56q07e929pt9i009.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.latinocodes.safeme",
+            "certificate_hash": "7f3bd0fe18fbf781896382a533a72b07ae0ac4e5"
+          }
+        },
+        {
+          "client_id": "742657328446-a0irvqrb8g6v0bc9eiq7einul656jd41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdPGFmC-wrJBHpX8sXVOPAN3OuyMiVnlw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742657328446-a0irvqrb8g6v0bc9eiq7einul656jd41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
