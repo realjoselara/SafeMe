@@ -8,6 +8,10 @@ public class User {
     private String sex;
     private int age;
     private String locationCordinates;
+    private String race;
+//    private bitmap<bitmap> image;
+
+
 
     public User() {
 
@@ -21,6 +25,10 @@ public class User {
         this.age = age;
         this.locationCordinates = locationCordinates;
     }
+
+    public String getRace() { return race; }
+
+    public void setRace(String race) { this.race = race; }
 
     public String getUserID() {
         return userID;
@@ -66,7 +74,5 @@ public class User {
         return locationCordinates;
     }
 
-    public void setLocationCordinates(String locationCordinates) {
-        this.locationCordinates = locationCordinates;
-    }
+    public void setLocationCordinates(String locationCordinates) { this.locationCordinates = locationCordinates; }
 }
