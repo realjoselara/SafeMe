@@ -122,8 +122,8 @@ public class SafeMeActivity extends AppCompatActivity {
                     .setPositiveButton("Find Help", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            String uri = "geo" + coordinates.get("latitude") + ", " + coordinates.get("longitude");
-                            String gweburi = "http://maps.google.com/maps?saddr=" + coordinates.get("latitude") + "," + coordinates.get("longitude") + "&daddr=" + 40.7449992 + "," + -74.0239707;
+                            String uri = "geo:" + coordinates.get("latitude") + ", " + coordinates.get("longitude")+"?q=Police Station";
+                            String gweburi = "http://maps.google.com/maps?saddr=" + coordinates.get("latitude") + "," + coordinates.get("longitude") + "?q=Police Station";
 //                            String gweburi = "http://maps.google.com/maps?&daddr=" + 40.7449992 + "," + -74.0239707;
                             Uri gmapsIntent = Uri.parse(uri);
                             Uri gwebIntent = Uri.parse(gweburi);
