@@ -1,15 +1,18 @@
 package com.latinocodes.safeme.model;
 
+import java.util.ArrayList;
+
 public class User {
 
     private String userID;
     private String firstName;
     private String lastName;
     private String sex;
-    private int age;
-    private String locationCordinates;
-    private String race;
+    private String age;
+    private ArrayList<Double> locationCordinates;
+    private String ethnicity;
 //    private bitmap<bitmap> image;
+    String TAG = "User";
 
 
 
@@ -17,18 +20,21 @@ public class User {
 
     }
 
-    public User(String userID, String firstName, String lastName, String sex, int age, String locationCordinates) {
-        this.userID = userID;
+    public User(String uuid, String firstName, String lastName, String sex, String age, ArrayList<Double> location, String ethnicity){
+        this.userID = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
         this.sex = sex;
         this.age = age;
-        this.locationCordinates = locationCordinates;
+        this.locationCordinates = location;
+        this.ethnicity = ethnicity;
+
     }
 
-    public String getRace() { return race; }
 
-    public void setRace(String race) { this.race = race; }
+    public String getEthnicity() { return ethnicity; }
+
+    public void setEthnicity(String ethnicity) { this.ethnicity = ethnicity; }
 
     public String getUserID() {
         return userID;
@@ -62,17 +68,18 @@ public class User {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
-    public String getLocationCordinates() {
+    public ArrayList<Double> getLocationCordinates() {
         return locationCordinates;
     }
 
-    public void setLocationCordinates(String locationCordinates) { this.locationCordinates = locationCordinates; }
+    public void setLocationCordinates(ArrayList<Double> locationCordinates) { this.locationCordinates = locationCordinates; }
+
 }

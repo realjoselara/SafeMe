@@ -1,24 +1,28 @@
 package com.latinocodes.safeme;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-import android.support.v4.app.ActivityCompat;
-import android.Manifest;
-import android.content.Intent;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.latinocodes.safeme.model.User;
 
 import java.util.HashMap;
 
@@ -27,7 +31,8 @@ public class SafeMeActivity extends AppCompatActivity {
     public HashMap<String, Double> coordinates = new HashMap<>();
     public static final String BROADCAST_ACTION = "com.ojastec.broadcastreceiverdemo";
     private String TAG = "SafeMeActivity";
-
+    String MyPREFERENCES = "UserSession";
+    SharedPreferences sharedpreferences;
     EditText editemailaddress, editpassword;
 
 
@@ -36,6 +41,10 @@ public class SafeMeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_safe_me);
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
@@ -58,7 +67,7 @@ public class SafeMeActivity extends AppCompatActivity {
 
 
         //Bomb Button Event
-        bombButton = (Button) findViewById(R.id.bomb);
+        bombButton = findViewById(R.id.bomb);
         bombButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +76,7 @@ public class SafeMeActivity extends AppCompatActivity {
         });
 
         // amber alert button
-        Button amberAlert = (Button) findViewById(R.id.amber_alert);
+        Button amberAlert = findViewById(R.id.amber_alert);
         // handle onclick event for amber button: open up Description activity
         amberAlert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +88,7 @@ public class SafeMeActivity extends AppCompatActivity {
         });
 
         //other emergency alert button
-        Button other = (Button) findViewById(R.id.other_alert);
+        Button other = findViewById(R.id.other_alert);
         //handle onclick event for other emergency button: open up Description activity
         other.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +99,7 @@ public class SafeMeActivity extends AppCompatActivity {
         });
 
         // active shooter emergency alert button
-        Button activeShooter = (Button) findViewById(R.id.active_shooter);
+        Button activeShooter = findViewById(R.id.active_shooter);
         // handle onclick event for active shooter button: open up dialog box
         activeShooter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +109,7 @@ public class SafeMeActivity extends AppCompatActivity {
         });
 
         //button for attack emergency alert button
-        Button attack = (Button) findViewById(R.id.rapist);
+        Button attack = findViewById(R.id.rapist);
         //handle onclick event for attack emergency button : open up a dialog box
         attack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,15 +125,22 @@ public class SafeMeActivity extends AppCompatActivity {
 
         //openPopup Method after pushing one of the buttons on SafeMeActivity Screen
         public void openPopup () {
+            //retrive user info from sharedpreferences
+            Gson gson = new Gson();
+            String json = sharedpreferences.getString("Userinfo", "");
+            User user = gson.fromJson(json, User.class);
+
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setTitle("Alert Sent")
-                    .setMessage("An Alert has been sent Out!")
+                    .setMessage(user.getFirstName()+" An Alert has been sent Out!")
                     .setPositiveButton("Find Help", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String uri = "geo:" + coordinates.get("latitude") + ", " + coordinates.get("longitude")+"?q=Police Station";
-                            String gweburi = "http://maps.google.com/maps?saddr=" + coordinates.get("latitude") + "," + coordinates.get("longitude") + "?q=Police Station";
-//                            String gweburi = "http://maps.google.com/maps?&daddr=" + 40.7449992 + "," + -74.0239707;
+                            String gweburi = "http://maps.google.com/maps?q=Police Station";
+//                            Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345")
+//                          String gweburi = "http://maps.google.com/maps?saddr=" + coordinates.get("latitude") + "," + coordinates.get("longitude") + "?q=Police Station";
+//                          String gweburi = "http://maps.google.com/maps?&daddr=" + 40.7449992 + "," + -74.0239707;
                             Uri gmapsIntent = Uri.parse(uri);
                             Uri gwebIntent = Uri.parse(gweburi);
                             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmapsIntent);
