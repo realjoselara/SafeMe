@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "742657328446-08lr132una0bts8ko4sucnrsn7hmnr71.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.latinocodes.safeme",
+            "certificate_hash": "14198f037d24eb87e63bd0b814ee73f75ff83ea1"
+          }
+        },
+        {
           "client_id": "742657328446-a0irvqrb8g6v0bc9eiq7einul656jd41.apps.googleusercontent.com",
           "client_type": 3
         }
