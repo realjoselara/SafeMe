@@ -62,7 +62,8 @@
             android:name=".Description"
             android:label="@string/title_activity_description"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
