@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -21,6 +22,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.latinocodes.safeme.model.User;
 
@@ -35,7 +40,8 @@ public class SafeMeActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     EditText editemailaddress, editpassword;
 
-
+    //Channel ID for Firebase Cloud Messaging Notification
+    public static final String CHANNEL_ID = "Alert";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,19 @@ public class SafeMeActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
+        //Testing - Show Token
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if(task.isSuccessful()){
+                            String token = task.getResult().getToken();
+                            //Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
+                        }else {
+                            //Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED &&
