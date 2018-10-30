@@ -3,14 +3,19 @@ package com.latinocodes.safeme;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.latinocodes.safeme.model.User;
 
@@ -22,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     String MyPREFERENCES = "UserSession";
     SharedPreferences sharedpreferences;
     FirebaseDatabase database;
+    String devtoken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         regAge = findViewById(R.id.regAge);
 
         findViewById(R.id.regActButton).setOnClickListener(this);
+
+
+        //Testing - Show Token
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if(task.isSuccessful()){
+                            devtoken = task.getResult().getToken();
+
+                            //Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
+                        }else {
+                            //Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
     }
 
@@ -99,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             String uuid = user.getUserID();
 
-            createuser(uuid, firstname, lastname, ethnicity, gender, age);
+            createuser(uuid, firstname, lastname, ethnicity, gender, age, devtoken);
 
             Intent loginScreen = new Intent(this, LoginScreen.class);
             startActivity(loginScreen);
@@ -112,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public void createuser(String uuid, String firstname, String lastname, String ethnicity, String gender, String age){
+    public void createuser(String uuid, String firstname, String lastname, String ethnicity, String gender, String age, String devtoken){
         /***Add user information to the database***/
         //TODO create activity and plug this in
         DatabaseReference user = database.getReference("Users");
@@ -122,7 +144,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         user.child(uuid).child("Ethnicity").setValue(ethnicity);
         user.child(uuid).child("Sex").setValue(gender);
         user.child(uuid).child("Age").setValue(age);
+        user.child(uuid).child("Token").setValue(devtoken);
+
     }
+
+
 
 
 }
