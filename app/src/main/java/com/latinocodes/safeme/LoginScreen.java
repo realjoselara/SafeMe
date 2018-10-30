@@ -165,8 +165,6 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
-
-
     public boolean createuser(){
         /***Add user information to the database***/
         //TODO create activity and plug this in

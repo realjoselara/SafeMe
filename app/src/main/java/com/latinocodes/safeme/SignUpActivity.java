@@ -93,9 +93,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Register Complete", Toast.LENGTH_SHORT).show();
-                        Intent backtologin = new Intent(SignUpActivity.this, LoginScreen.class);
-                        startActivity(backtologin);
+                        Toast.makeText(getApplicationContext(), "Email Registered", Toast.LENGTH_SHORT).show();
+                        Intent regScreen = new Intent(SignUpActivity.this, RegisterActivity.class);
+                        startActivity(regScreen);
                     } else {
                         Toast.makeText(getApplicationContext(), "Email is Registered already", Toast.LENGTH_SHORT).show();
                     }
