@@ -70,6 +70,11 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
     }
+
+    private void checkuser(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    }
     private void logintosafeme(){
         try {
             //get email and password from the two text fields
@@ -167,17 +172,17 @@ public class LoginScreen extends AppCompatActivity {
 
 
 
-    public boolean createuser(){
+    public boolean createuser(String uuid){
         /***Add user information to the database***/
         //TODO create activity and plug this in
         DatabaseReference user = database.getReference("Users");
-        user.child("UUID").setValue("");
-        user.child("Firstname").setValue("");
-        user.child("Lastname").setValue("");
-        user.child("Age").setValue("");
-        user.child("Sex").setValue("");
-        user.child("Ethnicity").setValue("");
-        user.child("LastLocation").setValue("");
+        user.child(uuid).child("UUID").setValue("");
+        user.child(uuid).child("Firstname").setValue("");
+        user.child(uuid).child("Lastname").setValue("");
+        user.child(uuid).child("Age").setValue("");
+        user.child(uuid).child("Sex").setValue("");
+        user.child(uuid).child("Ethnicity").setValue("");
+        user.child(uuid).child("LastLocation").setValue("");
 
 
         return true;
