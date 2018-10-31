@@ -3,12 +3,12 @@ package com.latinocodes.safeme.model;
 public class Emergency {
 
     private String type;
-    private int initiatorID;
+    private String initiatorID;
     private Notification notification;
 
     public Emergency(){}
 
-    public Emergency(String type, int initiatorID, Notification notification) {
+    public Emergency(String type, String initiatorID, Notification notification) {
         this.type = type;
         this.initiatorID = initiatorID;
         this.notification = notification;
@@ -22,11 +22,11 @@ public class Emergency {
         this.type = type;
     }
 
-    public int getInitiatorID() {
+    public String getInitiatorID() {
         return initiatorID;
     }
 
-    public void setInitiatorID(int initiatorID) {
+    public void setInitiatorID(String initiatorID) {
         this.initiatorID = initiatorID;
     }
 

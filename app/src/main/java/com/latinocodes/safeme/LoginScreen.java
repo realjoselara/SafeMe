@@ -43,11 +43,17 @@ public class LoginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+        mAuth = FirebaseAuth.getInstance();
+
+        //check if user is already logged on
+        if(mAuth.getCurrentUser() != null){
+            openSafeMeActivity();
+        }
 
         database = FirebaseDatabase.getInstance();
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        mAuth = FirebaseAuth.getInstance();
+
         editemailaddress = findViewById(R.id.loginEmailAddress);
         editpassword = findViewById(R.id.loginpassword);
 
@@ -159,7 +165,7 @@ public class LoginScreen extends AppCompatActivity {
                 String json = gson.toJson(user); //convert User obj to json format to be stored
 
                 editor.putString("Userinfo", json); // store to shared preferences as Userinfo to be retirived later.
-                editor.commit();
+                editor.apply();
 
             }
 

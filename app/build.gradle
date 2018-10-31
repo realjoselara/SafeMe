@@ -35,4 +35,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.7'
     //gson to convert user obj to be stored in shared preferences
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 }
