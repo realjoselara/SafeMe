@@ -32,5 +32,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.firebase:firebase-database:16.0.4'
     implementation 'com.google.firebase:firebase-database:16.0.1'
-    implementation 'com.google.code.gson:gson:2.7' //gson to convert user obj to be stored in shared preferences
+    implementation 'com.google.code.gson:gson:2.7'
+    //gson to convert user obj to be stored in shared preferences
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
 }

@@ -94,6 +94,7 @@
         android:ems="10"
         android:hint="@string/ConfirmPassword"
         android:inputType="textPassword"
+        android:textColor="#eaedf2"
         android:textColorHint="#eaedf2"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/signupbtn"

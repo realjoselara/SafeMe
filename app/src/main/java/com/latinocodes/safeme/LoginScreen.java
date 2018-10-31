@@ -170,21 +170,4 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
-
-
-    public boolean createuser(String uuid){
-        /***Add user information to the database***/
-        //TODO create activity and plug this in
-        DatabaseReference user = database.getReference("Users");
-        user.child(uuid).child("UUID").setValue("");
-        user.child(uuid).child("Firstname").setValue("");
-        user.child(uuid).child("Lastname").setValue("");
-        user.child(uuid).child("Age").setValue("");
-        user.child(uuid).child("Sex").setValue("");
-        user.child(uuid).child("Ethnicity").setValue("");
-        user.child(uuid).child("LastLocation").setValue("");
-
-
-        return true;
-    }
 }
