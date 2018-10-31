@@ -9,8 +9,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 
 public class LocationService extends Service {
@@ -20,6 +22,8 @@ public class LocationService extends Service {
     private LocationManager locationManager =null;
     private static final int Location_Interval =1000;
     private static final float Location_Distance = 10f;
+    String MyPREFERENCES = "UserSession";
+    ArrayList<Double> locationcordinates = new ArrayList<>();
 
     private class LocationListener implements android.location.LocationListener{
         /**This location listener captures all location changes and sends a broadcast to SafeMeActivity
@@ -34,9 +38,26 @@ public class LocationService extends Service {
         public void onLocationChanged(Location location){
             Log.e(TAG, "onLocationChanged:" + location);
             mLastLocation.set(location);
-//            Double longitude=location.getLongitude();
-//            Double latitude=location.getLatitude();
+
+            //store location cordinates to arraylist
+            locationcordinates.add(location.getLatitude());
+            locationcordinates.add(location.getLongitude());
 //            Toast.makeText(LocationService.this,longitude + "yes" + latitude + " ",Toast.LENGTH_LONG).show();
+//            SharedPreferences sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//            Gson gson = new Gson();
+//            String json = sharedPreferences.getString("Userinfo", "");
+//            User userdata = gson.fromJson(json, User.class);
+//
+//            userdata.setLocationCordinates(locationcordinates); //add cordinates to user object
+//            System.out.println("JSON::::"+userdata.getLocationCordinates());
+//            //update shared preferences
+//
+//            String userjson = gson.toJson(userdata); //convert User obj to json format to be stored
+//
+//            SharedPreferences.Editor editor = sharedPreferences.edit(); //create editor object
+//            editor.putString("Userinfo", userjson); // store to shared preferences as Userinfo to be retirived later.
+//            editor.commit();
+
             sendMyBroadCast(); //send broadcast containing updated coordinates
         }
 

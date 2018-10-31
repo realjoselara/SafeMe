@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,16 +20,23 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
+import com.latinocodes.safeme.model.Emergency;
+import com.latinocodes.safeme.model.Notification;
 import com.latinocodes.safeme.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SafeMeActivity extends AppCompatActivity {
@@ -38,7 +46,11 @@ public class SafeMeActivity extends AppCompatActivity {
     private String TAG = "SafeMeActivity";
     String MyPREFERENCES = "UserSession";
     SharedPreferences sharedpreferences;
-    EditText editemailaddress, editpassword;
+//    EditText editemailaddress, editpassword;
+    FirebaseDatabase database;
+
+    private FusedLocationProviderClient mFusedLocationClient;
+
 
     //Channel ID for Firebase Cloud Messaging Notification
     public static final String CHANNEL_ID = "Alert";
@@ -49,6 +61,8 @@ public class SafeMeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_safe_me);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        database = FirebaseDatabase.getInstance();
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         //Testing - Show Token
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -70,7 +84,38 @@ public class SafeMeActivity extends AppCompatActivity {
                         PackageManager.PERMISSION_GRANTED) {
 //            googleMap.setMyLocationEnabled(true);
 //            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-            Toast.makeText(this, "Location Enabled", Toast.LENGTH_LONG).show();
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                Toast.makeText(getApplicationContext(), "Location"+location.getLatitude()+":"+location.getLongitude(), Toast.LENGTH_LONG).show();
+
+                                SharedPreferences sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                                Gson gson = new Gson();
+                                String json = sharedPreferences.getString("Userinfo", "");
+                                User userdata = gson.fromJson(json, User.class);
+                                Log.i(TAG, "Location:"+userdata.getFirstName());
+
+                                userdata.setLocationCordinates(location);
+                                //update shared preferences
+                                Log.i(TAG, "Location:"+location);
+
+                                String userjson = gson.toJson(userdata); //convert User obj to json format to be stored
+
+                                SharedPreferences.Editor editor = sharedPreferences.edit(); //create editor object
+                                editor.putString("Userinfo", userjson); // store to shared preferences as Userinfo to be retirived later.
+                                editor.commit();
+
+                                updatelocation();
+
+                            }
+                        }
+                    });
+
+//            Toast.makeText(this, "Location Enabled", Toast.LENGTH_LONG).show();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{
                             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -90,6 +135,8 @@ public class SafeMeActivity extends AppCompatActivity {
         bombButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Notification notification = new Notification("Bomb", "Bomb found", true);
+                Alert(notification);
                 openPopup();
             }
         });
@@ -123,6 +170,8 @@ public class SafeMeActivity extends AppCompatActivity {
         activeShooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Notification notification = new Notification("Active Shooter", "Shooter", true);
+                Alert(notification);
                 openPopup();
             }
         });
@@ -133,6 +182,8 @@ public class SafeMeActivity extends AppCompatActivity {
         attack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Notification notification = new Notification("Attack", "I'm being attacked", true);
+                Alert(notification);
                 openPopup();
             }
         });
@@ -141,13 +192,26 @@ public class SafeMeActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // All good!
+                } else {
+                    Toast.makeText(this, "Need your location!", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+        }
+    }
 
         //openPopup Method after pushing one of the buttons on SafeMeActivity Screen
         public void openPopup () {
             //retrive user info from sharedpreferences
             Gson gson = new Gson();
             String json = sharedpreferences.getString("Userinfo", "");
-            User user = gson.fromJson(json, User.class);
+            final User user = gson.fromJson(json, User.class);
 
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setTitle("Alert Sent")
@@ -155,8 +219,9 @@ public class SafeMeActivity extends AppCompatActivity {
                     .setPositiveButton("Find Help", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            String uri = "geo:" + coordinates.get("latitude") + ", " + coordinates.get("longitude")+"?q=Police Station";
-                            String gweburi = "http://maps.google.com/maps?q=Police Station";
+                            String uri = "geo:" + user.getLocationCordinates().get(0) + ", " + user.getLocationCordinates().get(0)+"?q=Police Station";
+                            Log.i(TAG, "locationurl:" + uri);
+                            String gweburi = "http://maps.google.com/maps-34.7868114,-34.7868114?q=Police Station";
 //                            Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345")
 //                          String gweburi = "http://maps.google.com/maps?saddr=" + coordinates.get("latitude") + "," + coordinates.get("longitude") + "?q=Police Station";
 //                          String gweburi = "http://maps.google.com/maps?&daddr=" + 40.7449992 + "," + -74.0239707;
@@ -214,6 +279,22 @@ public class SafeMeActivity extends AppCompatActivity {
 
                     coordinates.put("longitude", i.getDoubleExtra("long", 0));
                     coordinates.put("latitude", i.getDoubleExtra("lat", 0));
+
+                    Gson gson = new Gson();
+                    String json = sharedpreferences.getString("Userinfo", "");
+                    User userdata = gson.fromJson(json, User.class);
+
+                    userdata.setLocationCordinates(new ArrayList<Double>(coordinates.values())); //add cordinates to user object
+                    System.out.println("JSON::::"+userdata.getLocationCordinates());
+                    //update shared preferences
+
+                    String userjson = gson.toJson(userdata); //convert User obj to json format to be stored
+
+                    SharedPreferences.Editor editor = sharedpreferences.edit(); //create editor object
+                    editor.putString("Userinfo", userjson); // store to shared preferences as Userinfo to be retirived later.
+                    editor.commit();
+
+                    updatelocation();
                     Log.e(TAG, "coordinates received");
 
                 } catch (Exception ex) {
@@ -236,6 +317,49 @@ public class SafeMeActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    public void updatelocation(){
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("Userinfo", "");
+        User userdata = gson.fromJson(json, User.class);
+//        ArrayList<Double> locationcord = userdata.getLocationCordinates();
+        DatabaseReference user = database.getReference("Users");
+        user.child(userdata.getUserID()).child("LastLocation").child("0").setValue(userdata.getLocationCordinates().get(0));
+        user.child(userdata.getUserID()).child("LastLocation").child("1").setValue(userdata.getLocationCordinates().get(0));
+    }
+
+
+    public void Alert(Notification notification){
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("Userinfo", "");
+        User userdata = gson.fromJson(json, User.class);
+        float lat = sharedpreferences.getFloat("Userlocationlat", 0);
+        float lng = sharedpreferences.getFloat("Userlocationlng", 0);
+
+        Emergency emergency = new Emergency("None", userdata.getUserID(), notification);
+
+        DatabaseReference alert = database.getReference("Notifications");
+        DatabaseReference newalert = alert.push();
+        newalert.child("InitiatorId").setValue(userdata.getUserID());
+        newalert.child("Type").setValue(emergency.getNotification().getType());
+        newalert.child("Location").child("0").setValue(lat);
+        newalert.child("Location").child("1").setValue(lng);
+        newalert.child("Description").setValue(emergency.getNotification().getDescription());
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+    }
+
 }
 
 

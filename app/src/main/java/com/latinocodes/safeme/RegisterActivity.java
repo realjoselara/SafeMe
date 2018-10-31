@@ -3,17 +3,21 @@ package com.latinocodes.safeme;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
@@ -28,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     SharedPreferences sharedpreferences;
     FirebaseDatabase database;
     String devtoken;
+    String TAG ="RegisterActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +127,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             String uuid = user.getUserID();
 
             createuser(uuid, firstname, lastname, ethnicity, gender, age, devtoken);
+            getuserinfo(uuid);
 
             Intent loginScreen = new Intent(this, LoginScreen.class);
             startActivity(loginScreen);
@@ -148,6 +154,38 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    public void getuserinfo(final String uuid){
+        /***Retrieve user information from DB and store data to Shared preferences available through
+         * out the application***/
+
+        DatabaseReference my = database.getReference("Users");
+        DatabaseReference userdata = my.child(uuid);
+        userdata.addValueEventListener(new ValueEventListener() {
+            //            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = new User();
+                user.setFirstName(dataSnapshot.child("Firstname").getValue(String.class));
+                user.setLastName(dataSnapshot.child("Lastname").getValue(String.class));
+                user.setSex(dataSnapshot.child("Sex").getValue(String.class));
+                user.setUserID(uuid);
+                user.setEthnicity(dataSnapshot.child("Ethnicity").getValue(String.class));
+
+                //add user information to Shared preferences using editor and gson
+                SharedPreferences.Editor editor = sharedpreferences.edit(); //create editor object
+                Gson gson = new Gson();
+                String json = gson.toJson(user); //convert User obj to json format to be stored
+
+                editor.putString("Userinfo", json); // store to shared preferences as Userinfo to be retirived later.
+                editor.apply();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, databaseError.toString());
+            }
+        });
+    }
 
 
 

@@ -1,5 +1,7 @@
 package com.latinocodes.safeme.model;
 
+import android.location.Location;
+
 import java.util.ArrayList;
 
 public class User {
@@ -9,7 +11,7 @@ public class User {
     private String lastName;
     private String sex;
     private String age;
-    private ArrayList<Double> locationCordinates;
+    private ArrayList<Double> locationCordinates = new ArrayList<>();
     private String ethnicity;
 //    private bitmap<bitmap> image;
     String TAG = "User";
@@ -80,6 +82,14 @@ public class User {
         return locationCordinates;
     }
 
-    public void setLocationCordinates(ArrayList<Double> locationCordinates) { this.locationCordinates = locationCordinates; }
+    public void setLocationCordinates(Location location) {
+        this.locationCordinates.add(location.getLatitude());
+        this.locationCordinates.add(location.getLongitude());
+    }
+
+    public void setLocationCordinates(ArrayList<Double> locationCordinates) {
+        this.locationCordinates = locationCordinates;
+
+    }
 
 }
