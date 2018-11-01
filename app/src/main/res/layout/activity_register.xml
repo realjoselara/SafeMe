@@ -8,54 +8,53 @@
     tools:context=".RegisterActivity">
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="145dp"
-        android:layout_height="113dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:contentDescription="safemelogo"
+        android:id="@+id/userprofileimage"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="#eaedf2"
+        android:color="#eaedf2"
         app:layout_constraintBottom_toTopOf="@+id/regFirstName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/lifesaver" />
+        app:layout_constraintVertical_bias="0.574"
+        app:srcCompat="@drawable/imageupload" />
 
     <Button
         android:id="@+id/regActButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/roundstylebutton"
         android:text="Register"
         android:textColor="#eaedf2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.659"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regGender" />
 
     <EditText
         android:id="@+id/regFirstName"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="4dp"
         android:ems="10"
         android:hint="@string/FirstName"
         android:inputType="textPersonName"
-        android:textColorHint="#eaedf2"
         android:textColor="#eaedf2"
+        android:textColorHint="#eaedf2"
         app:layout_constraintBottom_toTopOf="@+id/regLastName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/regLastName"
@@ -64,13 +63,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
         android:ems="10"
         android:hint="@string/LastName"
         android:inputType="textPersonName"
-        android:textColorHint="#eaedf2"
         android:textColor="#eaedf2"
-        app:layout_constraintBottom_toTopOf="@+id/regEthnicity"
+        android:textColorHint="#eaedf2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,11 +84,11 @@
         android:ems="10"
         android:hint="@string/Ethnicity"
         android:inputType="textPersonName"
-        android:textColorHint="#eaedf2"
         android:textColor="#eaedf2"
+        android:textColorHint="#eaedf2"
         app:layout_constraintBottom_toTopOf="@+id/regAge"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regLastName" />
 
