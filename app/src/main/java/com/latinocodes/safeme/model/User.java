@@ -13,6 +13,7 @@ public class User {
     private String age;
     private ArrayList<Double> locationCordinates = new ArrayList<>();
     private String ethnicity;
+    private String lastUpdated;
 //    private bitmap<bitmap> image;
     String TAG = "User";
 
@@ -90,6 +91,16 @@ public class User {
     public void setLocationCordinates(ArrayList<Double> locationCordinates) {
         this.locationCordinates = locationCordinates;
 
+    }
+
+    public void setLastUpdated(String date){
+        this.lastUpdated = date;
+    }
+    public String getLastUpdated(){return this.lastUpdated;}
+
+    public String print(){
+        return ""+this.firstName+", "+this.lastName+" "+this.sex+", "+this.age+","
+                +this.locationCordinates.get(0)+":"+this.locationCordinates.get(1)+", "+this.lastUpdated;
     }
 
 }
