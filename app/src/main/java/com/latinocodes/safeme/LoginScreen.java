@@ -77,10 +77,7 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
-    private void checkuser(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    }
     private void logintosafeme(){
         try {
             //get email and password from the two text fields

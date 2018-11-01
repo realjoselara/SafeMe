@@ -36,7 +36,10 @@ import com.latinocodes.safeme.model.Emergency;
 import com.latinocodes.safeme.model.Notification;
 import com.latinocodes.safeme.model.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class SafeMeActivity extends AppCompatActivity {
@@ -46,7 +49,6 @@ public class SafeMeActivity extends AppCompatActivity {
     private String TAG = "SafeMeActivity";
     String MyPREFERENCES = "UserSession";
     SharedPreferences sharedpreferences;
-//    EditText editemailaddress, editpassword;
     FirebaseDatabase database;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -91,20 +93,20 @@ public class SafeMeActivity extends AppCompatActivity {
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
                                 // Logic to handle location object
-                                Toast.makeText(getApplicationContext(), "Location"+location.getLatitude()+":"+location.getLongitude(), Toast.LENGTH_LONG).show();
 
                                 SharedPreferences sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                                 Gson gson = new Gson();
                                 String json = sharedPreferences.getString("Userinfo", "");
                                 User userdata = gson.fromJson(json, User.class);
-                                Log.i(TAG, "Location:"+userdata.getFirstName());
-
                                 userdata.setLocationCordinates(location);
+
+                                //update last location update
+                                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                                Date date = new Date();
+                                userdata.setLastUpdated(dateFormat.format(date));
+
                                 //update shared preferences
-                                Log.i(TAG, "Location:"+location);
-
                                 String userjson = gson.toJson(userdata); //convert User obj to json format to be stored
-
                                 SharedPreferences.Editor editor = sharedPreferences.edit(); //create editor object
                                 editor.putString("Userinfo", userjson); // store to shared preferences as Userinfo to be retirived later.
                                 editor.commit();
@@ -148,6 +150,7 @@ public class SafeMeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Description.class);
+                intent.putExtra("caller", "Amber Alert");
                 startActivity(intent);
 
             }
@@ -160,6 +163,7 @@ public class SafeMeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Description.class);
+                intent.putExtra("caller", "Other");
                 startActivity(intent);
             }
         });
@@ -324,8 +328,10 @@ public class SafeMeActivity extends AppCompatActivity {
         User userdata = gson.fromJson(json, User.class);
 //        ArrayList<Double> locationcord = userdata.getLocationCordinates();
         DatabaseReference user = database.getReference("Users");
+        Log.i(TAG, userdata.print());
         user.child(userdata.getUserID()).child("LastLocation").child("0").setValue(userdata.getLocationCordinates().get(0));
-        user.child(userdata.getUserID()).child("LastLocation").child("1").setValue(userdata.getLocationCordinates().get(0));
+        user.child(userdata.getUserID()).child("LastLocation").child("1").setValue(userdata.getLocationCordinates().get(1));
+        user.child(userdata.getUserID()).child("LastUpdated").setValue(userdata.getLastUpdated());
     }
 
 
@@ -333,18 +339,16 @@ public class SafeMeActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = sharedpreferences.getString("Userinfo", "");
         User userdata = gson.fromJson(json, User.class);
-        float lat = sharedpreferences.getFloat("Userlocationlat", 0);
-        float lng = sharedpreferences.getFloat("Userlocationlng", 0);
-
         Emergency emergency = new Emergency("None", userdata.getUserID(), notification);
 
         DatabaseReference alert = database.getReference("Notifications");
         DatabaseReference newalert = alert.push();
         newalert.child("InitiatorId").setValue(userdata.getUserID());
         newalert.child("Type").setValue(emergency.getNotification().getType());
-        newalert.child("Location").child("0").setValue(lat);
-        newalert.child("Location").child("1").setValue(lng);
+        newalert.child("Location").child("0").setValue(userdata.getLocationCordinates().get(0));
+        newalert.child("Location").child("1").setValue(userdata.getLocationCordinates().get(1));
         newalert.child("Description").setValue(emergency.getNotification().getDescription());
+        newalert.child("Date").setValue(emergency.getDate());
 
     }
 
