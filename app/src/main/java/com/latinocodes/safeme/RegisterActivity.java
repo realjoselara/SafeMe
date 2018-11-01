@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -120,23 +121,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 return;
             }
 
-            Gson gson = new Gson();
-            String json = sharedpreferences.getString("Userinfo", "");
-            User user = gson.fromJson(json, User.class);
 
-            String uuid = user.getUserID();
-
-            createuser(uuid, firstname, lastname, ethnicity, gender, age, devtoken);
-            getuserinfo(uuid);
-
-            Intent loginScreen = new Intent(this, LoginScreen.class);
-            startActivity(loginScreen);
-
-            Toast.makeText(getApplicationContext(),"Registered", Toast.LENGTH_SHORT).show();
 
         } catch (Exception ex) {
             System.out.println("Error Exception has occurred");
         }
+
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("Userinfo", "");
+        User user = gson.fromJson(json, User.class);
+
+        String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        createuser(uuid, firstname, lastname, ethnicity, gender, age, devtoken);
+        getuserinfo(uuid);
+
+        Intent loginScreen = new Intent(this, LoginScreen.class);
+        startActivity(loginScreen);
+
+        Toast.makeText(getApplicationContext(),"Registered", Toast.LENGTH_SHORT).show();
 
     }
 
