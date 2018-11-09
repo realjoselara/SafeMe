@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.regActButton).setOnClickListener(this);
 
 
-        //Testing - Show Token
+        //Show Token
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
