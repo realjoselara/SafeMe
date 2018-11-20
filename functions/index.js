@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-exports.sendNotification = functions.database.ref('/Notifications/{pushId}')
+exports.sendNotification = functions.database.ref('/Notifications/')
     .onWrite(event => {
         const message = event.data.current.val();
         const senderUid = message.from;
@@ -17,6 +17,8 @@ exports.sendNotification = functions.database.ref('/Notifications/{pushId}')
             promises.push(event.data.current.ref.remove());
             return Promise.all(promises);
         }
+
+        console.log('something happened');
 
         const getInstanceIdPromise = admin.database().ref(`/users/${receiverUid}/instanceId`).once('value');
         const getReceiverUidPromise = admin.auth().getUser(receiverUid);
