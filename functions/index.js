@@ -11,7 +11,6 @@ admin.initializeApp({
 // Function calls
 exports.sendNotificationAlert = functions.database.ref('/Notifications/{pushId}')
     .onWrite(event  => {
-        console.log(event.after);
-        return event.after;
+        console.log(event.before._data);
+        return 0;
     });
-
