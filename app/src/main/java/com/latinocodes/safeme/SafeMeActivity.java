@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.latinocodes.safeme.model.Emergency;
 import com.latinocodes.safeme.model.Notification;
@@ -71,6 +72,8 @@ public class SafeMeActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         database = FirebaseDatabase.getInstance();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
 
         //Testing - Show Token
         FirebaseInstanceId.getInstance().getInstanceId()

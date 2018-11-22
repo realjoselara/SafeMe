@@ -5,19 +5,28 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-// Function calls
 exports.sendNotificationAlert = functions.database
     .ref('/Notifications/{pushId}')
-    .onWrite((snapshot, context)  => {
+    .onWrite(event => {
+        console.log('Notification sent!')
+        const description = event.after._data.Description
+        const location = event.after._data.Location
+        const type = event.after._data.Type
 
-        var location = context.params.Location;
-        var type = context.params.Type;
-        var description = context.params.Description;
-        var date = context.params.Date;
-        console.log(`New message ${type}, location ${location}, description: ${description}, date: ${date}`)
+        const payload = {
+            notification: {
+                title: type,
+                body:  `Description: ${description}, Location: ${location['0']} ${location['1']}`,
+                sound: "default"
+            },
+        };
 
-        const messageData = snapshot.val();
-        console.log(messageData)
-        return messageData;
+        //Create an options object that contains the time to live for the notification and the priority
+        const options = {
+            priority: "high",
+            timeToLive: 60 * 60 * 24
+        };
 
+        return admin.messaging().sendToTopic("pushNotifications", payload, options);
     });
+
