@@ -7,7 +7,7 @@ admin.initializeApp(functions.config().firebase);
 
 exports.sendNotificationAlert = functions.database
     .ref('/Notifications/{pushId}')
-    .onWrite(event => {
+    .onWrite( event => {
 
         const description = event.after._data.Description
         const location = event.after._data.Location
